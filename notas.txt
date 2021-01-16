@@ -1,0 +1,83 @@
+Curso de Alex the Entrepenerd.
+
+// NOTAS
+
+Vamos a estar haciendo el backend con Strapi y el frontend con Next.js.
+
+Hicimos la carpeta "utils" para poner funciones auxiliares que usamos dentro de nuestras pages.
+Escribiendo /** + tab hacemos un JSDoc para indicar qué hace cada funcion.
+
+Hicimos la carpeta "components" para poner el Header y el Footer que se usan por defecto en todas las paginas.
+
+Hicimos la carpeta "context" donde vamos a trabajar con la context API de React para hacer el Auth y poder acceder luego al usuario, login y logout desde cualquier lado (Header, Login, Account).
+
+Cambiamos el controller por defecto de order (/api/order/controllers/order.js) para que no nos devuelva todas las orders al hacer un GET sino solamente las del usuario que hace la peticion.
+
+En account hacemos un fetch authenticated a Strapi de las orders para mostrarlas en el front de Next.
+
+// AUTH
+
+En el video usa Magic para hacer la parte de autenticacion, yo no lo voy a usar porque no le veo la gracia.
+
+La parte de authenticated users no va a estar.
+
+Lo que hice fue crear un User a mano (dado que en el ejemplo los crea Magic) con el mail eze@gmail.com y la contraseña es 123456 (aunque la pass no la usamos dentro de la app).
+Con él hice el POST a auth/local con los datos para obtener el JWT para hacer peticiones autorizadas.
+El JWT lo hardcodee en /context/AuchContext, pero puede que cambie asi que deberia hacer la peticion nuevamente.
+
+// SEO
+
+Para ayudar al SEO escribimos en varias paginas etiquetas Head customizadas con meta tags.
+
+// STRIPE
+
+Cuenta: ezequielperez64@gmail.com - Localidad1#
+
+Nota: Stripe no esta disponible para Argentina! Sin embargo, en la página dice que se puede usar "Stripe Atlas" para hacer una empresa estadounidense.
+Ver: https://stripe.com/global?locale=es
+https://stripe.com/es-us/atlas/global
+Puedes usar Atlas para constituir rápidamente una empresa estadounidense en línea desde cualquier lugar del mundo. Después de constituir la empresa estadounidense, puedes configurar una cuenta bancaria estadounidense y activar los pagos con Stripe.
+
+Otra opcion seria ver de integrar Mercado Pago.
+DOCS: https://www.mercadopago.com.ar/developers/es/guides/online-payments
+
+Para vincularlo con el backend de strapi, hacemos un npm i stripe (en la carpeta de Strapi).
+
+Debemos crear un archivo .env y poner alli la secret key que obtenemos de Stripe.
+
+Hacemos una funcion en el controller de orders para crearlas (api/order/controllers/order.js). Ver ahi todas las opciones que hay que pasarle al crear un pago.
+
+Para vincularlo con el frontend de Next, debemos hacer un npm i @stripe/stripe-js (en la carpeta de Next).
+
+En utils/urls pusimos nuestra publick key de Stripe.
+
+En el component BuyButton esta implementada la parte de frontend de Stripe.
+
+Para confirmar el pago, creamos un controller "confirm" y luego dentro de /api/order/config/routes.json en la linea 35 hacemos una ruta para ese controller. Esta va a ser llamada desde la page "success".
+
+// DEPLOYMENT STRAPI
+
+Deplyamos Strapi a Heroku.
+
+Hacemos un npm i pg pg-connection-string para instalar PostgreSQL, cosa de que Strapi use ese motor de db en produccion en vez de SQLite que es para development.
+
+Para cambiar la db, vamos al archivo /config/database.js.
+
+Para probar el cambio de db localmente podriamos correr strapi en production mode, pero no lo hace en el video.
+
+ESTO NO LO HICE PQ NO SABIA DE DONDE SACAR LOS DATOS DE AWS, PARECIERA SER NECESARIO PARA EL TEMA DE SUBIR IMAGENES.
+Debemos instalar un upload provider (que maneje los archivos que subimos), en este caso usamos npm i strapi-provider-upload-aws-s3.
+Docs: https://www.npmjs.com/package/strapi-provider-upload-aws-s3
+En /config debemos crear el archivo plugins.js para configurarlo.
+
+Para la parte de configuracion de Heroku ver el video porque hay que hacer un par de cosas para la db y las variables de entorno.
+Video: https://www.youtube.com/watch?v=vbh3-G1jIUg&list=PLJaXTX6e-FgoHnAzn2Bx6zjBBKhWPEecB&index=3&ab_channel=AlextheEntreprenerd
+
+Finalmente lo instale usando el heroku CLI, para re-deployar creo que tengo que hacer un add, un commit y un git push heroku master.
+
+Una vez deployado Strapi, hay que ir a la app/admin y rehacer todo dado que hicimos un cambio de db.
+
+// DEPLOYMENT NEXT
+
+Deployamos Next a Vercel (ver cómo deployar a github pages).
+
