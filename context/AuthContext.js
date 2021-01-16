@@ -22,7 +22,8 @@ export const AuthProvider = (props) => {
 
   // Esta funcion deberia sacar el token haciendo una llamada al backend (haciendo el POST a /auth/local quizas, para lo cual necesitaria agregar una password), pero la hardcodeo para simplificar las cosas
   const getToken = () => {
-    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEwNjg3OTM0LCJleHAiOjE2MTMyNzk5MzR9.DNiyRfJyPiRbSrT8D83HuOWuygV7asGrLbiwAZQy-aE"
+    // Puse el JWT que me devolvio la version deplyada a Heroku
+    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjEwNzc5NTQxLCJleHAiOjE2MTMzNzE1NDF9.N-1TBoC-NYFl_7xGN8Sy76FZfMcNyKe7cP-wKVCrvNQ"
   }
 
   return (

@@ -81,3 +81,7 @@ Una vez deployado Strapi, hay que ir a la app/admin y rehacer todo dado que hici
 
 Deployamos Next a Vercel (ver cómo deployar a github pages).
 
+Lo hacemos mediante un github repository, notar que hice un git branch -M main para cambiarle el nombre a la rama master para que se llame main (asi que luego tengo que hacer un git push -u origin main en vez de master).
+
+Cuando estamos terminando de crear el Vercel project, debemos guardar las 3 environment variables que tenemos en /utils/urls en Vercel.
+Para la de Stripe, deberiamos poner en realidad la Production Key en vez de la de testing.
